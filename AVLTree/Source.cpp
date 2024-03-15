@@ -115,6 +115,42 @@ void insertNode (AVLTree& r, int a) {
 	}
 }
 
+void deleteNode(AVLTree& r, int x) {
+	if (r == NULL) return;
+	if (r->data > x)
+		deleteNode(r->left, x); // leaf node
+	else if (r->data < x)
+		deleteNode(r->right, x); // leaf node
+
+	else {// r->data==x
+		if (r->left == NULL) { // if left sub tree is empty
+			Nodeptr successorNode;
+			successorNode = r;
+			r = r->right;
+			delete successorNode;
+		}
+		else if (r->right == NULL) { // if right sub tree is empty
+			Nodeptr successorNode;
+			successorNode = r;
+			r = r->left;
+			delete successorNode;
+		}
+		else { // if both sub tree exist => farthest node on the right side of left sub tree 
+			Nodeptr farthestRightNode = r->left;
+			while (farthestRightNode->right != NULL)
+				farthestRightNode = farthestRightNode->right;
+			r->data = farthestRightNode->data;
+			deleteNode(r->left, farthestRightNode->data);
+		}
+	}
+}
+
+Nodeptr searchNode(AVLTree r, int x) {
+	if (r == NULL || r->data == x) return r; // root is empty or key is present at root 
+	if (r->data > x) return searchNode(r->left, x); // root is greater than key
+	return searchNode(r->right, x); // root is smaller than key
+}
+
 void createTree(AVLTree& r) {
 	do {
 		int x;

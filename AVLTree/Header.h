@@ -21,5 +21,7 @@ void rotateLeftRight (AVLTree& r);
 void balanceLeft (AVLTree& r);
 void balanceRight (AVLTree& r);
 void insertNode(AVLTree& r, int a);
+void deleteNode(AVLTree& r, int x);
+Nodeptr searchNode(AVLTree r, int x);
 void createTree (AVLTree &r);
 void LNR( AVLTree r);
